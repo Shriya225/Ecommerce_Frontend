@@ -1,0 +1,17 @@
+.custom-nav {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .custom-nav:hover {
+    color: #a855f7; /* hover color */
+  }
+  
+  .custom-nav.active {
+    color: #7e22ce; /* active link color */
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
