@@ -1,0 +1,77 @@
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.login-heading {
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.prefilled-email {
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    margin-top: 1.5rem;
+}
+
+.login-input {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    padding: 0.75rem;
+}
+
+.login-input:focus {
+    box-shadow: none;
+    border-color: #999;
+}
+
+.form-links {
+    font-size: 0.9rem;
+}
+
+.forgot-password {
+    color: #666;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.create-account {
+    color: #666 !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
+}
+
+.create-account:hover {
+    color: #333 !important;
+    text-decoration: underline !important;
+}
+
+.signin-button {
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem;
+    width: 100%;
+    letter-spacing: 1px;
+}
+
+.signin-button:hover {
+    background-color: #333;
+}
+
+.error-message {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}

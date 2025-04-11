@@ -1,65 +1,93 @@
-import React, { useState } from 'react'
-import { Container,Form,Button,Alert } from 'react-bootstrap';
-import {useForm} from "react-hook-form"
-import {useLoginUserMutation,useRegisterUserMutation} from "../redux/loginApiSlice"
-import {toast} from "react-toastify";
+import React, { useState } from 'react';
+import { Container, Form, Button } from 'react-bootstrap';
+import { useForm } from "react-hook-form";
+import { useLoginUserMutation, useRegisterUserMutation } from "../redux/loginApiSlice";
+import { toast } from "react-toastify";
+import './Login.css';
+
 const Login = () => {
-    const [signup,setSignup]=useState(false);
-    const {register,handleSubmit,formState:{errors}}=useForm();
+    const [signup, setSignup] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [login, { isLoading: isLoginLoading }] = useLoginUserMutation();
     const [registerUser, { isLoading: isRegisterLoading }] = useRegisterUserMutation();
-    const onSubmit=async (data)=>{
+
+    const onSubmit = async (data) => {
         console.log(data);
-        try{
-            if(signup===false){
-                const response=await login(data).unwrap();
-                console.log("succesfully logged in ");
-                toast.success("Succesfully Logged in",{draggable:true});
-                console.log("response is ",response);
-            }
-            else{
-                if(data["password"]!== data["verifyPassword"]){
-                    console.log("oops! please enter valid passwrods ,both must match...");
+        try {
+            if (signup === false) {
+                const response = await login(data).unwrap();
+                console.log("successfully logged in");
+                toast.success("Successfully Logged in", { draggable: true });
+            } else {
+                if (data["password"] !== data["verifyPassword"]) {
                     toast.error("Passwords do not match.");
                     return;
                 }
-                const response=await registerUser(data).unwrap();
-                console.log("Created A/c");
-                console.log("response is ",response);
+                const response = await registerUser(data).unwrap();
                 toast.success("Created Account");
             }
-            
-        }
-        catch(err){
+        } catch (err) {
             console.log("Login error:", err?.data?.detail || err.message);
             toast.error("Invalid Credentials");
-            
         }
-        
-    }
-    {console.log("rendering login component....");
-    }
+    };
+
     return (
-        <div>
-            <h1 className='text-center'>{signup===true?"signup":"Login"}</h1>
-            <Form onSubmit={handleSubmit(onSubmit)} className="w-50 mx-auto mt-5">
-                <Form.Group>
-                    <Form.Control type="text" {...register('username',{required:"Enter Username"})} placeholder='Enter UserName'></Form.Control>
-                    {errors.username && <p className='text-danger'>{errors.username.message}</p>}
-                </Form.Group> <br/>
-                <Form.Group>
-                    <Form.Control type="password" {...register("password",{required:"Enter Password"})} placeholder='Enter Password' />
-                    {errors.password &&<p className='text-danger'>{errors.password.message}</p>}
-                </Form.Group> <br/> 
-                    {signup===true && <Form.Group><Form.Control type="password" {...register("verifyPassword",{required:"Re-Enter password"})} placeholder='Re-enter password' /> </Form.Group>}
-               
-                <Button onClick={()=>{setSignup(!signup)}} className='btn-warning' >{signup===true?"Login Here":"Create Account"}</Button><br />
-                <Button type='submit' disabled={isLoginLoading||isRegisterLoading}>{signup===true?"Sign Up":"Sign In"}</Button>
+        <Container className="login-container">
+            <h2 className='login-heading'>{signup===true?"Signup —":"Login —"}</h2>
+            <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="text"
+                        {...register('username', { required: "Enter Username" })}
+                        placeholder="Enter Username"
+                        className="login-input"
+                    />
+                    {errors.username && <p className="text-danger error-message">{errors.username.message}</p>}
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="password"
+                        {...register("password", { required: "Enter Password" })}
+                        placeholder="Enter Password"
+                        className="login-input"
+                    />
+                    {errors.password && <p className="text-danger error-message">{errors.password.message}</p>}
+                </Form.Group>
+
+                {signup && (
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            type="password"
+                            {...register("verifyPassword", { required: "Re-Enter password" })}
+                            placeholder="Re-enter password"
+                            className="login-input"
+                        />
+                    </Form.Group>
+                )}
+
+                <div className="d-flex justify-content-between mb-4 form-links">
+                    <a href="#" className="forgot-password">Forgot your password?</a>
+                    <Button
+                        variant="link"
+                        className="create-account p-0"
+                        onClick={() => setSignup(!signup)}
+                    >
+                        {signup ? "Login instead" : "Create account"}
+                    </Button>
+                </div>
+
+                <Button
+                    type="submit"
+                    className="signin-button"
+                    disabled={isLoginLoading || isRegisterLoading}
+                >
+                   {signup===true?"Sign Up":"Sign In"}
+                </Button>
             </Form>
+        </Container>
+    );
+};
 
-
-    </div>
-  )
-}
-
-export default Login
+export default Login;
