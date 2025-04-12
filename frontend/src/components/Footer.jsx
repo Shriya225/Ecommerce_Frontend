@@ -5,7 +5,7 @@ import "./Footer.css"; // For minor custom adjustments
 const Footer = () => {
   return (
     <Container fluid className="bg-white text-dark p-5">
-      {/* Subscribe Section */}
+      {/* Subscribe Section
       <Row className="mb-5 text-center">
         <Col>
           <h2 className="mb-3 fw-normal">Subscribe now & get 20% off</h2>
@@ -24,9 +24,9 @@ const Footer = () => {
             </Button>
           </Form>
         </Col>
-      </Row>
+      </Row> */}
 
-      <hr className="my-4" />
+      {/* <hr className="my-4" /> */}
 
       {/* Main Footer Content - Side by Side Layout */}
       <Row className="g-4">
