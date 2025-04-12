@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import './HeroSection.css';
+import heroImg from '../assets/hero_img2.png';
+
 
 const HeroSection = () => {
   return (
@@ -42,7 +44,7 @@ const HeroSection = () => {
           <Col lg={6} className="order-lg-2 order-1 mb-4 mb-lg-0">
             <div className="hero-image-container">
               <Image
-                src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                src={heroImg}
                 alt="Modern shopping experience"
                 fluid
                 className="hero-image"
