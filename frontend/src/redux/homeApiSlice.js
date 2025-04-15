@@ -4,11 +4,16 @@ export const homeApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/' }),
     endpoints: (builder) => ({
       home: builder.query({
-        query: (details) => ({
+        query: () => ({
           url:"/"
+        }),
+      }),
+      allCollection: builder.query({
+        query: () => ({
+          url:"/api/collections/"
         }),
       })
     }),
   })
 
-export const {useHomeQuery}=homeApi;
+export const {useHomeQuery,useAllCollectionQuery}=homeApi;

@@ -11,6 +11,7 @@ import Home from './components/Home';
 import About from './components/About';
 import ContactUs from './components/ContactUs';
 import Login from './components/Login.jsx';
+import Collection from './components/Collection.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
@@ -34,7 +35,14 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login />,
       },
+      {
+        path: '/collection',
+        element: <Collection/>,
+      },
     ]
+  },
+  {path:"*",
+    element:<div>Ok,404 Error</div>
   }
 ]);
 

@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div>
       <HeroSection />
-      {!isLoading &&
+      {!isLoading && !error &&
         <div >
           <LatestCollection data={data["latest_products"]} heading={"LATEST COLLECTIONS"} title={"  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the."} />
           <LatestCollection data={data["best_sellers"]} heading={"BEST SELLERS"} title={"  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the."} />
