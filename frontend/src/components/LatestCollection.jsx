@@ -13,5 +13,4 @@ const LatestCollection = ({data,heading,title}) => {
         </div>
     );
 }
-
 export default LatestCollection;

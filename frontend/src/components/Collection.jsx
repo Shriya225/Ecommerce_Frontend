@@ -4,12 +4,12 @@ import { useAllCollectionQuery } from '../redux/homeApiSlice'
 import './Heading.css';
 const Collection = () => {
     const {data,error,isLoading}=useAllCollectionQuery();
-    console.log(data);
+    console.log(data,error);
     
   return (
     <div>
         <h2 className='font' style={{"margin":"35px"}}>ALL COLLECTIONS</h2>
-        {(!isLoading && <CardContainer data={data["results"]}/>)}
+        {(!isLoading && !error && <CardContainer data={data["results"]}/>)}
         
     </div>
   )

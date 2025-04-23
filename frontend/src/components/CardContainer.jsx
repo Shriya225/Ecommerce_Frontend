@@ -15,7 +15,6 @@ const CardContainer = ({data}) => {
                 >
                     {data.map((product)=>{ return <Col key={product.id} md={3} sm={6} xs={12} >
                         <Link to={`/product/${product.id}`}><ProductCard title={product["name"]} price={product["price"]} img={product["main_image"]}/></Link>
-                       
                     </Col>
                     
                 })}

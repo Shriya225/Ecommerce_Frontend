@@ -13,7 +13,7 @@ import ContactUs from './components/ContactUs';
 import Login from './components/Login.jsx';
 import Collection from './components/Collection.jsx';
 import 'react-toastify/dist/ReactToastify.css';
-
+import ProductDetail from './components/ProductDetail.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -37,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/collection',
-        element: <Collection/>,
+        element: <Collection/>,  
+      },
+      {
+        path:'/product/:id',
+        element:<ProductDetail/>
       },
     ]
   },
