@@ -1,0 +1,30 @@
+/* CardContainer.css */
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  
+  a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+/* ProductCard.css */
+.product-card {
+    overflow: hidden; /* Ensures the zoomed image doesn't overflow the card */
+  }
+  
+  .product-img-container {
+    overflow: hidden; /* Hides any part of the image that might overflow during zoom */
+  }
+  
+  .product-img {
+    transition: transform 0.1s ease; /* Smooth transition for the zoom effect */
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card:hover .product-img {
+    transform: scale(1.08); /* Zoom level (5% larger) */
+    cursor: pointer; /* Changes cursor to indicate interactivity */
+  }

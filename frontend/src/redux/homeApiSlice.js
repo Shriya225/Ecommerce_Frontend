@@ -11,8 +11,8 @@ export const homeApi = createApi({
         }),
       }),
       allCollection: builder.query({
-        query: () => ({
-          url:"/api/collections/"
+        query: (id) => ({
+          url:`/api/collections/?page=${id}`
         }),
       }),
       productDetail: builder.query({
