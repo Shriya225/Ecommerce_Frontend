@@ -2,14 +2,16 @@ import React from 'react';
 import CardContainer from './CardContainer';
 import { useAllCollectionQuery } from '../redux/homeApiSlice';
 import './Heading.css';
-import { Container, Pagination, Spinner, Alert } from 'react-bootstrap';
+import { Container, Pagination, Spinner, Alert, Form } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 
 const Collection = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageFromParams = parseInt(searchParams.get('page')) || 1;
   const sort = searchParams.get('sort') || '';
-  const { data, error, isLoading } = useAllCollectionQuery({ page: pageFromParams, sort });
+  const cateogry=searchParams.get('cateogry')||'';
+  const type=searchParams.get('type')||'';
+  const { data, error, isLoading } = useAllCollectionQuery({ page: pageFromParams, sort ,cateogry,type});
   const totalPages = data ? Math.ceil(data.count / 10) : 1;
 
   const handlePageChange = (newPage) => {
@@ -20,34 +22,70 @@ const Collection = () => {
     });
   };
 
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    setSearchParams(prev => {
+      const params = new URLSearchParams(prev);
+      if (value) {
+        params.set('sort', value);
+      } else {
+        params.delete('sort');
+      }
+      params.set('page', '1');
+      return params;
+    });
+  };
+
+  const handleCateogryChange=(newCateogry)=>{
+    setSearchParams((prev)=>{
+      const params = new URLSearchParams(prev);
+      params.set('cateogry', newCateogry);
+      params.set('page',1);
+      params.delete('type');
+      return params;
+    })
+  }
+  const handleTypeChange=(newType)=>{
+    setSearchParams((prev)=>{
+      const params = new URLSearchParams(prev);
+      params.set('type',newType);
+      params.set('page',1);
+      return params;
+    })
+  }
+
+  
+
   return (
     <div>
-      <h2 className="font" style={{ margin: '35px' }}>
-        ALL COLLECTIONS
-      </h2>
-      <div>
-        <button onClick={() => {
-          setSearchParams(prev => {
-            const params = new URLSearchParams(prev);
-            params.set('sort', 'asc');
-            params.set('page', '1');
-            return params;
-          });
-        }}>
-          Asc
-        </button>
-        <button onClick={() => {
-          setSearchParams(prev => {
-            const params = new URLSearchParams(prev);
-            params.set('sort', 'desc');
-            params.set('page', '1');
-            return params;
-          });
-        }}>
-          Desc
-        </button>
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '35px' }}>
+        <h2 className="font">
+          ALL COLLECTIONS
+        </h2>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
 
+          <Form.Select 
+            style={{ width: '200px' }}
+            value={sort}
+            onChange={handleSortChange}
+          >
+            <option value="">Sort by: Relevant</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+          </Form.Select>
+        </div>
+      </div>
+      <div>
+        <button onClick={()=>{handleCateogryChange("Men")}}>Men</button>
+        <button onClick={()=>{handleCateogryChange("Women")}}>women</button>
+        <button onClick={()=>{handleCateogryChange("Kids")}}>kids</button>
+      </div>
+      <div>
+        <button onClick={()=>{handleTypeChange("BottomWear")}}>BottomWear</button>
+        <button onClick={()=>{handleTypeChange("TopWear")}}>TopWear</button>
+        <button onClick={()=>{handleTypeChange("WinterWear")}}>WinterWear</button>
+     
+      </div>
       {isLoading && (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }}>
           <Spinner animation="border" variant="primary" />
