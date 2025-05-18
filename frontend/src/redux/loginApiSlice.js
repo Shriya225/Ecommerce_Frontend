@@ -1,7 +1,36 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { setAccessToken, logout } from './authSlice';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:8000/api',
+  credentials: 'include', // SEND cookies!
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.accessToken;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+  if (result.error?.status === 401) {
+    // Try refresh token
+    const refreshResult = await baseQuery('/api/refresh/', api, extraOptions);
+    if (refreshResult.data?.access) {
+      api.dispatch(setAccessToken(refreshResult.data.access));
+      result = await baseQuery(args, api, extraOptions); // retry
+    } else {
+      api.dispatch(logout());
+    }
+  }
+  return result;
+};
+
 export const loginApi = createApi({
     reducerPath: 'loginApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/api/' }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
       loginUser: builder.mutation({
         query: (details) => ({

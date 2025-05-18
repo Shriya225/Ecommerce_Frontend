@@ -5,11 +5,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { NavLink, Link } from 'react-router-dom';
 import "./CardContainer.css";
+import { memo } from "react";
 
 const CardContainer = ({ data }) => {
     return (
-
         <Container>
+           {
+
+            console.log("cardcontaier loading..")
+           }
             <Row
                 className="justify-content-center g-4" // Centers cards and adds gap between them
             >
@@ -30,4 +34,4 @@ const CardContainer = ({ data }) => {
     )
 }
 
-export default CardContainer
+export default memo(CardContainer);

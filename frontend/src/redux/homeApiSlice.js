@@ -11,8 +11,8 @@
           }),
         }),
         allCollection: builder.query({
-          query: ({page,sort,category,type}) => ({
-            url:`/api/collections/?page=${page}&sort=${sort}&cateogry=${category}&type=${type}`
+          query: ({page,sort,category,type,search}) => ({
+            url:`/api/collections/?page=${page}&sort=${sort}&cateogry=${category}&type=${type}&search=${search}`
           }),
         }),
         productDetail: builder.query({

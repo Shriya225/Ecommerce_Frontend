@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CardContainer from './CardContainer';
 import { useAllCollectionQuery } from '../redux/homeApiSlice';
-import './collection.css'
 import {
   Container,
   Pagination,
   Spinner,
   Alert,
-  Form
+  Form,
+  InputGroup,
+  Button
 } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
-import './Collection.css'; // Create this CSS file for additional styles
+import './Collection.css';
 
 const Collection = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [inputValue, setInputValue] = useState("");
   const pageFromParams = parseInt(searchParams.get('page')) || 1;
   const sort = searchParams.get('sort') || '';
   const category = searchParams.get('category') || '';
   const type = searchParams.get('type') || '';
+  const search = searchParams.get('search') || '';
+  
   const { data, error, isLoading } = useAllCollectionQuery({
     page: pageFromParams,
     sort,
     category,
-    type
+    type,
+    search
   });
   const totalPages = data ? Math.ceil(data.count / 10) : 1;
 
@@ -30,6 +35,19 @@ const Collection = () => {
     setSearchParams(prev => {
       const params = new URLSearchParams(prev);
       params.set('page', newPage);
+      return params;
+    });
+  };
+
+  const handleSearchChange = () => {
+    setSearchParams(prev => {
+      const params = new URLSearchParams(prev);
+      if (inputValue.trim()) {
+        params.set('search', inputValue.trim());
+      } else {
+        params.delete('search');
+      }
+      params.set('page', '1');
       return params;
     });
   };
@@ -48,40 +66,85 @@ const Collection = () => {
     });
   };
 
-  const handleCategoryChange = (newCategory) => {
+  const handleCategoryChange = (selectedCategory) => {
     setSearchParams(prev => {
       const params = new URLSearchParams(prev);
-      params.set('category', newCategory);
+      if (category === selectedCategory) {
+        params.delete('category');
+        params.delete('type');
+      } else {
+        params.set('category', selectedCategory);
+        params.delete('type');
+      }
       params.set('page', '1');
-      params.delete('type');
       return params;
     });
   };
 
-  const handleTypeChange = (newType) => {
+  const handleTypeChange = (selectedType) => {
     setSearchParams(prev => {
       const params = new URLSearchParams(prev);
-      params.set('type', newType);
+      if (type === selectedType) {
+        params.delete('type');
+      } else {
+        params.set('type', selectedType);
+      }
       params.set('page', '1');
       return params;
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert variant="danger" className="error-alert">
+        Something went wrong.
+      </Alert>
+    );
+  }
 
   return (
     <div className="collection-container">
-      {/* Header Section */}
+      {/* Header Section with Search and Sort */}
       <div className="collection-header">
         <h2 className="collection-title">ALL COLLECTIONS</h2>
-        <div className="sort-container">
-          <Form.Select
-            className="sort-select"
-            value={sort}
-            onChange={handleSortChange}
-          >
-            <option value="">Sort by: Relevant</option>
-            <option value="asc">Price: Low to High</option>
-            <option value="desc">Price: High to Low</option>
-          </Form.Select>
+        <div className="header-controls">
+          
+          <InputGroup className="search-container">
+            <Form.Control
+              type="text"
+              placeholder="Search products..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+
+            />
+          
+            <Button 
+              variant="outline-secondary"
+              onClick={handleSearchChange}
+            >
+              Search
+            </Button>
+          </InputGroup>
+          <div className="sort-container">
+            <Form.Select
+              className="sort-select"
+              value={sort}
+              onChange={handleSortChange}
+            >
+              <option value="">Sort by: Relevant</option>
+              <option value="asc">Price: Low to High</option>
+              <option value="desc">Price: High to Low</option>
+            </Form.Select>
+          </div>
+          
         </div>
       </div>
 
@@ -118,19 +181,6 @@ const Collection = () => {
             ))}
           </div>
         </div>
-      )}
-
-      {/* Content Loading */}
-      {isLoading && (
-        <div className="loading-container">
-          <Spinner animation="border" variant="primary" />
-        </div>
-      )}
-
-      {error && (
-        <Alert variant="danger" className="error-alert">
-          Something went wrong.
-        </Alert>
       )}
 
       {/* Product Cards */}

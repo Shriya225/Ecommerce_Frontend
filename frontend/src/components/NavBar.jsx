@@ -2,8 +2,19 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Container, Navbar } from 'react-bootstrap';
 import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa';
-import "./NavBar.css"; // For minor custom adjustments
+import { useSelector,useDispatch } from 'react-redux';
+import { logout} from '../redux/authSlice'; 
+import { useNavigate } from 'react-router-dom';
+import "./NavBar.css";
 const NavBar = () => {
+  const accessToken = useSelector(state => state.auth.accessToken);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
   return (
     <Navbar expand="md" bg="light" variant="light" className="py-3 px-4">
       <Container fluid>
@@ -71,11 +82,14 @@ const NavBar = () => {
 
         {/* Right Icons - Desktop */}
         <div className="d-none d-md-flex gap-4 order-md-3">
-          <FaSearch size={18} />
-          <Link to="/login">
-            <FaUser size={18} />
+          <Link to="/collection">
+            <FaSearch size={18} />
           </Link>
           <FaShoppingCart size={18} />
+          
+            {accessToken ? <button onClick={handleLogout}>logout</button>:<Link to="/login"><FaUser size={18} />  </Link>  }
+            {/* <FaUser size={18} /> */}
+        
         </div>
       </Container>
     </Navbar>

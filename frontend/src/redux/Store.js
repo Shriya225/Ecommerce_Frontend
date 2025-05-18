@@ -2,10 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { loginApi } from './loginApiSlice'
 import { homeApi } from './homeApiSlice'
+import authReducer from './authSlice'; 
+
 
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
+     auth:authReducer,
     [loginApi.reducerPath]: loginApi.reducer,
     [homeApi.reducerPath]: homeApi.reducer,
   },
