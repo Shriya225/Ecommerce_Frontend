@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProductDetailQuery } from '../redux/homeApiSlice';
+import { useProductDetailQuery } from '../redux/apiSlice';
 import { Container, Row, Col, Button, Image, Table } from 'react-bootstrap';
+import { useSelector,useDispatch } from 'react-redux';
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 const ProductDetail = () => {
+  const navigate=useNavigate();
+  const accessToken = useSelector(state => state.auth.accessToken);
   const [mainImgUrl, setMainImgUrl] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
@@ -27,6 +32,17 @@ const ProductDetail = () => {
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
   };
+
+  const handleAddToCart=()=>{
+    if (accessToken){
+      toast.success("added to Cart....");
+    }
+    else{
+      toast.warning("Login to add to Cart");
+      navigate("/login");
+    }
+  }
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading product</div>;
@@ -91,7 +107,7 @@ const ProductDetail = () => {
 
 
 
-          <Button variant="dark" size="lg" className="mb-4 w-100 py-3">
+          <Button variant="dark" size="lg" className="mb-4 w-100 py-3" onClick={handleAddToCart}>
             ADD TO CART
           </Button>
 

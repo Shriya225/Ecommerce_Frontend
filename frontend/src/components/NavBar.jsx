@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Container, Navbar } from 'react-bootstrap';
 import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa';
-import { useSelector,useDispatch } from 'react-redux';
-import { logout} from '../redux/authSlice'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import "./NavBar.css";
 const NavBar = () => {
@@ -85,11 +85,14 @@ const NavBar = () => {
           <Link to="/collection">
             <FaSearch size={18} />
           </Link>
-          <FaShoppingCart size={18} />
-          
-            {accessToken ? <button onClick={handleLogout}>logout</button>:<Link to="/login"><FaUser size={18} />  </Link>  }
-            {/* <FaUser size={18} /> */}
-        
+          {accessToken&&
+          <Link to="/cart">
+            <FaShoppingCart size={18} />
+          </Link>}
+
+          {accessToken ? <button onClick={handleLogout}>logout</button> : <Link to="/login"><FaUser size={18} />  </Link>}
+          {/* <FaUser size={18} /> */}
+
         </div>
       </Container>
     </Navbar>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import HeroSection from './HeroSection';
 import Subscribe from './Subscribe';
 import LatestCollection from './LatestCollection';
-import { useHomeQuery } from '../redux/homeApiSlice';
+import { useHomeQuery } from '../redux/apiSlice';
 const Home = () => {
   const [showToast, setShowToast] = useState(false);
   const { data, error, isLoading } = useHomeQuery();

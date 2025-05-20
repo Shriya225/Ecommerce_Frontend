@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CardContainer from './CardContainer';
-import { useAllCollectionQuery } from '../redux/homeApiSlice';
+import { useAllCollectionQuery } from '../redux/apiSlice';
 import {
   Container,
   Pagination,

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Provider } from 'react-redux'
 import { store } from './redux/Store.js'
-
+import CartContainer from './components/CartContainer.jsx';
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import Home from './components/Home';
 import About from './components/About';
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/cart',
+        element: <CartContainer/>,
       },
       {
         path: '/collection',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
-import { useLoginUserMutation, useRegisterUserMutation } from "../redux/loginApiSlice";
+import { useLoginUserMutation, useRegisterUserMutation } from "../redux/apiSlice";
 import { toast } from "react-toastify";
 import './Login.css';
 import { useDispatch } from 'react-redux';
