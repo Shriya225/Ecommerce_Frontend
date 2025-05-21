@@ -5,6 +5,7 @@ import { Container, Row, Col, Button, Image, Table } from 'react-bootstrap';
 import { useSelector,useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { useAddToCartMutation } from '../redux/apiSlice';
 
 const ProductDetail = () => {
   const navigate=useNavigate();
@@ -13,7 +14,9 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
   const { data, error, isLoading } = useProductDetailQuery(id);
-  console.log(data);
+  const [addToCart,{ isLoading: isAddToCartLoading }]=useAddToCartMutation();
+
+  console.log(data,id);
   
   let product_imgs = data?.product_images;
   let image_url = data?.product_images[0]?.image_url;
@@ -33,14 +36,15 @@ const ProductDetail = () => {
     setSelectedSize(size);
   };
 
-  const handleAddToCart=()=>{
-    if (accessToken){
-      toast.success("added to Cart....");
+  const handleAddToCart=async()=>{
+    try{
+      const response=await addToCart({"product":id,"size":selectedSize});
+      toast.success("added to Cart");
     }
-    else{
-      toast.warning("Login to add to Cart");
-      navigate("/login");
+    catch(err){
+      toast.error("unable to add plz login");
     }
+    
   }
 
 

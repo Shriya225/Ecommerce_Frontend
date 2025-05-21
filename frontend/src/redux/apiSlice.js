@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setAccessToken, logout } from './authSlice';
-
+import { setCartTotal } from './cartTotalSlice';
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:8000',
   credentials: 'include',
@@ -67,10 +67,57 @@ export const apiSlice = createApi({
           query: () => ({
             url:`/Cart/ListCart/`
           }),
+          providesTags: ['Cart'],
         }),
     productDetail: builder.query({ query: (id) => `/api/collections/${id}/` }),
+    addToCart: builder.mutation({
+      query: (details) => ({
+        url: '/Cart/addCart/',
+        method: 'POST',
+        body:details,
+      }),
+        invalidatesTags: ['Cart'],
+    }),
+deleteFromCart: builder.mutation({
+  query: (details) => ({
+    url: '/Cart/deleteCartItem/',
+    method: 'DELETE',
+    body: details,
+  }),
+  async onQueryStarted(details, { dispatch, queryFulfilled, getState }) {
+    const patchResult = dispatch(
+      apiSlice.util.updateQueryData('cart', undefined, (draft) => {
+        const removedItem = draft.data?.find(item => item.id === details.id);
+        draft.data = draft.data?.filter(item => item.id !== details.id);
+
+        if (removedItem) {
+          const currentTotal = getState().cartTotal.value;
+          const priceDrop = removedItem.product.price * removedItem.quantity;
+          dispatch(setCartTotal(currentTotal - priceDrop));
+        }
+      })
+    );
+
+    try {
+      await queryFulfilled;
+    } catch {
+      patchResult.undo();
+
+      // Recalculate total
+      const updated = apiSlice.endpoints.cart.select()(getState()).data?.data || [];
+      const newTotal = updated.reduce(
+        (acc, item) => acc + item.product.price * item.quantity,
+        0
+      );
+      dispatch(setCartTotal(newTotal));
+    }
+  },
+}),
+
+
 
   }),
+  
 });
 
 // Export hooks
@@ -80,5 +127,7 @@ export const {
   useProductDetailQuery,
   useLoginUserMutation,
   useRegisterUserMutation,
-  useCartQuery
+  useCartQuery,
+  useAddToCartMutation,
+  useDeleteFromCartMutation
 } = apiSlice;
