@@ -114,7 +114,14 @@ deleteFromCart: builder.mutation({
   },
 }),
 
-
+updateCart: builder.mutation({
+      query: (details) => ({
+        url: '/Cart/updateCart/',
+        method: 'PATCH',
+        body:details,
+      }),
+        invalidatesTags: ['Cart'],
+    }),
 
   }),
   
@@ -129,5 +136,6 @@ export const {
   useRegisterUserMutation,
   useCartQuery,
   useAddToCartMutation,
-  useDeleteFromCartMutation
+  useDeleteFromCartMutation,
+  useUpdateCartMutation
 } = apiSlice;

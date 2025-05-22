@@ -6,8 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import "./NavBar.css";
+import bagIcon from "../assets/cart_icon.png";
+
 const NavBar = () => {
+  console.log("navbar relaoding...");
+  
   const accessToken = useSelector(state => state.auth.accessToken);
+  const cartCount = useSelector(state => state.cartCount.count)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -86,9 +91,10 @@ const NavBar = () => {
             <FaSearch size={18} />
           </Link>
           {accessToken&&
-          <Link to="/cart">
-            <FaShoppingCart size={18} />
-          </Link>}
+          <Link to="/cart" className="position-relative d-inline-block">
+  <img src={bagIcon} alt="Cart" width={24} height={24} />
+  <span className="cart-badge">{cartCount}</span>
+</Link>}
 
           {accessToken ? <button onClick={handleLogout}>logout</button> : <Link to="/login"><FaUser size={18} />  </Link>}
           {/* <FaUser size={18} /> */}

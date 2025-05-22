@@ -6,6 +6,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useAddToCartMutation } from '../redux/apiSlice';
+import { incrementCartCount } from '../redux/cartCountSlice';
+
 
 const ProductDetail = () => {
   const navigate=useNavigate();
@@ -15,6 +17,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useProductDetailQuery(id);
   const [addToCart,{ isLoading: isAddToCartLoading }]=useAddToCartMutation();
+  const dispatch=useDispatch();
 
   console.log(data,id);
   
@@ -38,6 +41,7 @@ const ProductDetail = () => {
 
   const handleAddToCart=async()=>{
     try{
+      dispatch(incrementCartCount());
       const response=await addToCart({"product":id,"size":selectedSize});
       toast.success("added to Cart");
     }
