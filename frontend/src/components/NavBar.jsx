@@ -7,19 +7,28 @@ import { logout } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import "./NavBar.css";
 import bagIcon from "../assets/cart_icon.png";
-
+import { setCartCount } from '../redux/cartCountSlice';
+import { useCartQuery } from '../redux/apiSlice';
+import { useEffect } from 'react';
 const NavBar = () => {
   console.log("navbar relaoding...");
-  
   const accessToken = useSelector(state => state.auth.accessToken);
   const cartCount = useSelector(state => state.cartCount.count)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { data, isSuccess } = useCartQuery();
 
   const handleLogout = () => {
     dispatch(logout());
     navigate('/login');
   };
+  useEffect(() => {
+    if (isSuccess && data?.data) {
+      const count = data.data.reduce((acc, item) => acc + item.quantity, 0);
+      dispatch(setCartCount(count));
+    }
+  }, [isSuccess, data, dispatch]);
+
   return (
     <Navbar expand="md" bg="light" variant="light" className="py-3 px-4">
       <Container fluid>
@@ -87,14 +96,17 @@ const NavBar = () => {
 
         {/* Right Icons - Desktop */}
         <div className="d-none d-md-flex gap-4 order-md-3">
+          <Link to="/orders">
+            <button>Orders</button>
+          </Link>
           <Link to="/collection">
             <FaSearch size={18} />
           </Link>
-          {accessToken&&
-          <Link to="/cart" className="position-relative d-inline-block">
-  <img src={bagIcon} alt="Cart" width={24} height={24} />
-  <span className="cart-badge">{cartCount}</span>
-</Link>}
+          {accessToken &&
+            <Link to="/cart" className="position-relative d-inline-block">
+              <img src={bagIcon} alt="Cart" width={24} height={24} />
+              <span className="cart-badge">{cartCount}</span>
+            </Link>}
 
           {accessToken ? <button onClick={handleLogout}>logout</button> : <Link to="/login"><FaUser size={18} />  </Link>}
           {/* <FaUser size={18} /> */}

@@ -122,7 +122,7 @@ updateCart: builder.mutation({
       }),
         invalidatesTags: ['Cart'],
     }),
-
+orders: builder.query({ query: () => `/Order/List/` }),
   }),
   
 });
@@ -137,5 +137,6 @@ export const {
   useCartQuery,
   useAddToCartMutation,
   useDeleteFromCartMutation,
-  useUpdateCartMutation
+  useUpdateCartMutation,
+  useOrdersQuery
 } = apiSlice;
