@@ -15,6 +15,7 @@ import Collection from './components/Collection.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductDetail from './components/ProductDetail.jsx';
 import OrderPage from './components/OrderPage.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',

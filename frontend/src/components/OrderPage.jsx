@@ -13,7 +13,7 @@ const OrderPage = () => {
   return (
 
     <div>
-    <h3>My Orders</h3>
+    <h3 className='text-center m-4'>My Orders</h3>
     {console.log(data)}
     {
       data.map((item,index)=><OrderItem key={index} item={item}/>)
