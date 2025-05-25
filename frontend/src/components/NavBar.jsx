@@ -18,8 +18,19 @@ const NavBar = () => {
   const cartCount = useSelector(state => state.cartCount.count)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, isSuccess } = useCartQuery();
   const [logoutApi, { isLoading, error }] = useLogoutMutation();
+  const { data, isSuccess, refetch } = useCartQuery(undefined, {
+    skip: !accessToken, // skip query if no token
+  });
+
+    useEffect(() => {
+    if (accessToken) {
+      refetch();
+    } else {
+      // optionally reset cart count on logout
+      dispatch(setCartCount(0));
+    }
+  }, [accessToken, refetch, dispatch]);
 
   const handleLogout = async () => {
     try {

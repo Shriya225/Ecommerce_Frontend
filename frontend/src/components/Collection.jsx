@@ -21,7 +21,7 @@ const Collection = () => {
   const category = searchParams.get('category') || '';
   const type = searchParams.get('type') || '';
   const search = searchParams.get('search') || '';
-  
+
   const { data, error, isLoading } = useAllCollectionQuery({
     page: pageFromParams,
     sort,
@@ -116,23 +116,39 @@ const Collection = () => {
       <div className="collection-header">
         <h2 className="collection-title">ALL COLLECTIONS</h2>
         <div className="header-controls">
-          
-          <InputGroup className="search-container">
+
+          <InputGroup className="search-container" >
             <Form.Control
               type="text"
               placeholder="Search products..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-
             />
-          
-            <Button 
-              variant="outline-secondary"
-              onClick={handleSearchChange}
-            >
+
+            {inputValue && (
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  setInputValue('');
+                  setSearchParams(prev => {
+                    const params = new URLSearchParams(prev);
+                    params.delete('search'); // remove search param
+                    params.set('page', '1'); // reset to page 1
+                    return params;
+                  });
+                }}
+                style={{ width: '38px', padding: '0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                aria-label="Clear search"
+              >
+                &#x2715;
+              </Button>
+            )}
+
+            <Button variant="outline-secondary" onClick={handleSearchChange}>
               Search
             </Button>
           </InputGroup>
+
           <div className="sort-container">
             <Form.Select
               className="sort-select"
@@ -144,7 +160,7 @@ const Collection = () => {
               <option value="desc">Price: High to Low</option>
             </Form.Select>
           </div>
-          
+
         </div>
       </div>
 

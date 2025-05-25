@@ -12,7 +12,6 @@ const authSlice = createSlice({
       localStorage.setItem('accessToken', action.payload);
     },
     logout: (state) => {
-      const res=await 
       state.accessToken = null;
       localStorage.removeItem('accessToken');
     },
