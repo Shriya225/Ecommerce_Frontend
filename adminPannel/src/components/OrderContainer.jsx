@@ -11,7 +11,7 @@ const OrderContainer = () => {
     return <>error...</>
   }
   return (
-    <div>OrderContainer
+    <div>
         {console.log(data)
         }
         {

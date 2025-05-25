@@ -54,79 +54,132 @@ const AddProduct = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="p-4">
-      <Row>
-        <Col md={12} className="mb-3">
-          <Form.Label>Upload Images</Form.Label>
-          <Form.Control type="file" multiple {...register('product_images')} />
-        </Col>
+   <Form onSubmit={handleSubmit(onSubmit)} className="p-4">
+  <Row className="gy-3">
+    {/* Upload Images */}
+    <Col xs={12}>
+      <Form.Label>Upload Images</Form.Label>
+    <Form.Control
+  type="file"
+  multiple
+  {...register('product_images', {
+    onChange: (e) => {
+      if (e.target.files.length > 4) {
+        alert('You can upload a maximum of 4 images.');
+        e.target.value = ''; // reset file input
+      }
+    },
+  })}
+  className="w-50"
+/>
+    </Col>
 
-        <Col md={6} className="mb-3">
-          <Form.Label>Product Name</Form.Label>
-          <Form.Control type="text" {...register('name', { required: true })} />
-        </Col>
+    {/* Product Name */}
+    <Col md={6}>
+      <Form.Label>Product Name</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Type here"
+        {...register('name', { required: true })}
+        className="w-50"
+      />
+       <Form.Label>Product Price</Form.Label>
+      <Form.Control
+        type="number"
+        placeholder="Enter price"
+        {...register('price', { required: true })}
+        className="w-50"
+      />
+    </Col>
 
-        <Col md={6} className="mb-3">
-          <Form.Label>Price</Form.Label>
-          <Form.Control type="number" {...register('price', { required: true })} />
-        </Col>
+    {/* Product Price */}
+    <Col md={6}>
+     
+    </Col>
 
-        <Col md={12} className="mb-3">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} {...register('description')} />
-        </Col>
+    {/* Description (full row) */}
+    <Col xs={12}>
+      <Form.Label>Product Description</Form.Label>
+      <Form.Control
+        as="textarea"
+        rows={3}
+        placeholder="Write content here"
+        {...register('description')}
+        className="w-25"
+      />
+    </Col>
 
-        <Col md={6} className="mb-3">
-          <Form.Label>Product Category</Form.Label>
-          <Form.Select {...register('category', { required: true })}>
-            <option value="">Select</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </Form.Select>
-        </Col>
+    {/* Category */}
+    <Col md={6}>
+      <Form.Label>Product Category</Form.Label>
+      <Form.Select
+        {...register('category', { required: true })}
+        className="w-50"
+      >
+        <option value="">Select</option>
+        {categories.map((cat) => (
+          <option key={cat} value={cat}>{cat}</option>
+        ))}
+      </Form.Select>
+      <Form.Label>Sub Category</Form.Label>
+      <Form.Select
+        {...register('subcategory', { required: true })}
+        className="w-50"
+      >
+        <option value="">Select</option>
+        {subcategories.map((sub) => (
+          <option key={sub} value={sub}>{sub}</option>
+        ))}
 
-        <Col md={6} className="mb-3">
-          <Form.Label>Subcategory</Form.Label>
-          <Form.Select {...register('subcategory', { required: true })}>
-            <option value="">Select</option>
-            {subcategories.map((sub) => (
-              <option key={sub} value={sub}>{sub}</option>
-            ))}
-          </Form.Select>
-        </Col>
+      </Form.Select>
+        <Form.Label>Stock</Form.Label>
+      <Form.Control
+        type="number"
+        {...register('stock')}
+        defaultValue={0}
+        className="w-50"
+      />
+    </Col>
 
-        <Col md={12} className="mb-3">
-          <Form.Label>Sizes</Form.Label>
-          <div className="d-flex gap-2 flex-wrap">
-            {sizes.map((size) => (
-              <Form.Check
-                key={size}
-                label={size}
-                type="checkbox"
-                value={size}
-                {...register('sizes')}
-              />
-            ))}
-          </div>
-        </Col>
+  
 
-        <Col md={6} className="mb-3">
+    {/* Sizes */}
+    <Col xs={12}>
+      <Form.Label>Product Sizes</Form.Label>
+      <div className="d-flex gap-3 flex-wrap">
+        {sizes.map((size) => (
           <Form.Check
+            key={size}
             type="checkbox"
-            label="Add to Bestseller"
-            {...register('bestSeller')}
+            value={size}
+            label={size}
+            {...register('sizes')}
           />
-        </Col>
+        ))}
+      </div>
+    </Col>
 
-        <Col md={6} className="mb-3">
-          <Form.Label>Stock</Form.Label>
-          <Form.Control type="number" {...register('stock')} defaultValue={0} />
-        </Col>
-      </Row>
+    {/* Bestseller */}
+    <Col md={6}>
+      <Form.Check
+        type="checkbox"
+        label="Add to Bestseller"
+        {...register('bestSeller')}
+        className="mt-2"
+      />
+    </Col>
 
-      <Button variant="dark" type="submit">Add</Button>
-    </Form>
+    {/* Stock */}
+    <Col md={6}>
+    
+    </Col>
+  </Row>
+
+  <Button variant="dark" type="submit" className="mt-4 px-5">
+    ADD
+  </Button>
+</Form>
+
   );
 };
 

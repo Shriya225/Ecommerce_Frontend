@@ -6,7 +6,7 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, { endpoint, getState }) => {
     // Skip auth header for these public endpoints
-    const publicEndpoints = ['home', 'allCollection', 'productDetail'];
+    const publicEndpoints = ['home', 'allCollection', 'productDetail','logout'];
 
     if (!publicEndpoints.includes(endpoint)) {
       const token = getState().auth.accessToken;
@@ -19,10 +19,18 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
+  
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
-    const refreshResult = await baseQuery('/api/refresh/', api, extraOptions);
+  const refreshResult = await fetchBaseQuery({
+      baseUrl: 'http://localhost:8000',
+      credentials: 'include',
+      prepareHeaders: (headers) => {
+        // Don't attach any auth header here
+        return headers;
+      },
+    })({ url: '/api/refresh/', method: 'POST' }, api, extraOptions);
     if (refreshResult.data?.access) {
       api.dispatch(setAccessToken(refreshResult.data.access));
       result = await baseQuery(args, api, extraOptions);
@@ -123,6 +131,15 @@ updateCart: builder.mutation({
         invalidatesTags: ['Cart'],
     }),
 orders: builder.query({ query: () => `/Order/List/` }),
+
+logout: builder.mutation({
+      query: (details) => ({
+        url: '/api/logout/',
+        method: 'POST',
+        body:details,
+      }),
+        invalidatesTags: ['Cart'],
+    }),
   }),
   
 });
@@ -138,5 +155,6 @@ export const {
   useAddToCartMutation,
   useDeleteFromCartMutation,
   useUpdateCartMutation,
-  useOrdersQuery
+  useOrdersQuery,
+  useLogoutMutation
 } = apiSlice;

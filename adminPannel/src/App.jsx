@@ -13,7 +13,6 @@ const App = () => {
       <TopBar />
       <Sidebar />
       <div className="main-content">
-        {/* Replace below with <Outlet /> if using routes */}
         <h2>Welcome Admin</h2>
         <Outlet/>
       </div>

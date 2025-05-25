@@ -22,7 +22,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
-    const refreshResult = await baseQuery('/api/refresh/', api, extraOptions);
+    const refreshResult = await baseQuery({
+    url: '/api/refresh/',
+    method: 'POST',
+  }, api, extraOptions);
     if (refreshResult.data?.access) {
       api.dispatch(setAccessToken(refreshResult.data.access));
       result = await baseQuery(args, api, extraOptions);

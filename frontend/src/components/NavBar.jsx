@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Container, Navbar } from 'react-bootstrap';
-import { FaSearch, FaUser, FaShoppingCart } from 'react-icons/fa';
+import { FaSearch, FaUser, FaShoppingCart, FaBox } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ import bagIcon from "../assets/cart_icon.png";
 import { setCartCount } from '../redux/cartCountSlice';
 import { useCartQuery } from '../redux/apiSlice';
 import { useEffect } from 'react';
+import { useLogoutMutation } from '../redux/apiSlice';
+
 const NavBar = () => {
   console.log("navbar relaoding...");
   const accessToken = useSelector(state => state.auth.accessToken);
@@ -17,10 +19,19 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data, isSuccess } = useCartQuery();
+  const [logoutApi, { isLoading, error }] = useLogoutMutation();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await logoutApi().unwrap();  // call backend logout API
+      dispatch(logout());
+      navigate('/login');
+    } catch (err) {
+      console.error('Failed to logout:', err);
+      dispatch(logout());
+      navigate('/login');
+    }
+
   };
   useEffect(() => {
     if (isSuccess && data?.data) {
@@ -96,9 +107,8 @@ const NavBar = () => {
 
         {/* Right Icons - Desktop */}
         <div className="d-none d-md-flex gap-4 order-md-3">
-          <Link to="/orders">
-            <button>Orders</button>
-          </Link>
+
+         
           <Link to="/collection">
             <FaSearch size={18} />
           </Link>
@@ -107,8 +117,56 @@ const NavBar = () => {
               <img src={bagIcon} alt="Cart" width={24} height={24} />
               <span className="cart-badge">{cartCount}</span>
             </Link>}
+              {accessToken && (
+  <Link
+    to="/orders"
+  >
+     <button
+           
+              style={{
+                backgroundColor: 'black',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+              }}
+            >
+             Orders
+            </button>
+  </Link>
+)}
 
-          {accessToken ? <button onClick={handleLogout}>logout</button> : <Link to="/login"><FaUser size={18} />  </Link>}
+          {accessToken ? (
+            <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: 'black',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+              }}
+            >
+              Logout
+            </button>
+        ) : (
+            <Link
+              to="/login"
+              style={{
+                color: 'black',
+                width: '28px',
+                height: '28px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <FaUser size={18} />
+            </Link>
+          )}
+
           {/* <FaUser size={18} /> */}
 
         </div>
