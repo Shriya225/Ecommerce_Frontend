@@ -46,12 +46,10 @@ useEffect(() => {
       <br />
       <div className="d-flex flex-row-reverse flex-wrap gap-3">
         <div className="col-lg-6 col-md-8 col-12">
-          <CartTotal />
+          <CartTotal text={'PROCEED TO CHECKOUT'}/>
         </div>
       </div>
       <br /><br />
-
-
     </div>
 
 

@@ -15,6 +15,7 @@ import Collection from './components/Collection.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductDetail from './components/ProductDetail.jsx';
 import OrderPage from './components/OrderPage.jsx';
+import Checkout from './components/Checkout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path:'/orders',
         element:<OrderPage/>
+      },
+      {
+        path:'/checkout',
+        element:<Checkout/>
       },
     ]
   },

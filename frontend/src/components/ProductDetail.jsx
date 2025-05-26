@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductDetailQuery } from '../redux/apiSlice';
 import { Container, Row, Col, Button, Image, Table } from 'react-bootstrap';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useAddToCartMutation } from '../redux/apiSlice';
@@ -10,17 +10,18 @@ import { incrementCartCount } from '../redux/cartCountSlice';
 
 
 const ProductDetail = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const accessToken = useSelector(state => state.auth.accessToken);
   const [mainImgUrl, setMainImgUrl] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { id } = useParams();
   const { data, error, isLoading } = useProductDetailQuery(id);
-  const [addToCart,{ isLoading: isAddToCartLoading }]=useAddToCartMutation();
-  const dispatch=useDispatch();
+  const [addToCart, { isLoading: isAddToCartLoading }] = useAddToCartMutation();
+  const dispatch = useDispatch();
 
-  console.log(data,id);
-  
+
+  console.log(data, id);
+
   let product_imgs = data?.product_images;
   let image_url = data?.product_images[0]?.image_url;
 
@@ -39,16 +40,22 @@ const ProductDetail = () => {
     setSelectedSize(size);
   };
 
-  const handleAddToCart=async()=>{
-    try{
-      dispatch(incrementCartCount());
-      const response=await addToCart({"product":id,"size":selectedSize});
-      toast.success("added to Cart");
+  const handleAddToCart = async () => {
+    if (accessToken) {
+      try {
+        dispatch(incrementCartCount());
+        const response = await addToCart({ "product": id, "size": selectedSize });
+      }
+      catch (err) {
+        toast.error("Error");
+      }
     }
-    catch(err){
-      toast.error("unable to add plz login");
+    else{
+        toast.error("please login");
+        navigate('/login');
     }
-    
+
+
   }
 
 
@@ -84,7 +91,7 @@ const ProductDetail = () => {
         </Col>
 
         {/* Product Info Column */}
-        <Col md={6} className="ps-md-4" style={{"margin-top":"40px"}}>
+        <Col md={6} className="ps-md-4" style={{ "margin-top": "40px" }}>
 
           <h2 className="mb-3">{data?.name}</h2>
           <div className="mb-3">
@@ -92,7 +99,7 @@ const ProductDetail = () => {
           </div>
           <h3 className="mb-3">{data?.price}</h3>
           <p className="mb-4">
-           {data?.description}
+            {data?.description}
           </p>
 
 

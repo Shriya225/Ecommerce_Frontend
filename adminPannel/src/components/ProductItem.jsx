@@ -2,7 +2,18 @@
 import { Row, Col, Image, Button, Form } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useDeleteProductMutation } from '../redux/apiSlice';
 const ProductItem = ({item}) => {
+  const [deleteProduct]=useDeleteProductMutation();
+  const handleClick=async()=>{
+    try{
+      const res=await deleteProduct({"id":item?.id});
+      toast.success('deleted');
+    }
+    catch(err){
+      toast.error("Error");
+    }
+  }
   return (
     <div>
 
@@ -45,7 +56,7 @@ const ProductItem = ({item}) => {
             
             <Col md={1} className="text-end">
               <Button
-              onClick={()=>{toast.error("Feature is disabled in demo")}}
+              onClick={handleClick}
                 variant="link"
                 className="text-danger p-0"
                 aria-label="Remove item"

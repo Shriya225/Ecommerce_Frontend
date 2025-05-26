@@ -1,61 +1,64 @@
 import React from 'react';
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
-import './HeroSection.css';
-import heroImg from '../assets/hero_img2.png';
-
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import herobg from '../assets/pexels-ron-lach-8386648.webp';
 
 const HeroSection = () => {
   return (
-    <section className="hero-section">
-      <div className="hero-background"></div>
+    <section
+      style={{
+        minHeight: '75vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: `
+          linear-gradient(135deg, rgba(255, 241, 235, 0.5), rgba(255, 220, 209, 0.5)),
+          url(${herobg})
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        padding: '80px 20px',
+        borderBottom: '1px solid #eee',
+      }}
+    >
       <Container>
-        <Row className="align-items-center">
-          <Col lg={6} className="order-lg-1 order-2">
-            <div className="hero-content">
-              <span className="hero-badge">Summer Sale</span>
-              <h1 className="hero-title">
-                <span>Elevate Your</span>
-                <span className="highlight"> Shopping</span>
-                <span> Experience</span>
-              </h1>
-              <p className="hero-subtitle">
-                Discover premium products with exclusive discounts. Limited time offer!
-              </p>
-              <div className="hero-buttons">
-                <Button variant="primary" size="lg" className="me-3 hero-btn">
-                  Shop Collection
-                </Button>
-                <Button variant="outline-light" size="lg" className="hero-btn">
-                  Explore Deals
-                </Button>
-              </div>
-              <div className="hero-features">
-                <div className="feature-item">
-                  <i className="bi bi-truck"></i>
-                  <span>Free Shipping</span>
-                </div>
-                <div className="feature-item">
-                  <i className="bi bi-shield-check"></i>
-                  <span>Secure Payments</span>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col lg={6} className="order-lg-2 order-1 mb-4 mb-lg-0">
-            <div className="hero-image-container">
-              <Image
-                src={heroImg}
-                alt="Modern shopping experience"
-                fluid
-                className="hero-image"
-              />
-              <div className="floating-tag discount-tag">
-                <span>50% OFF</span>
-              </div>
-              <div className="floating-tag new-tag">
-                <span>New Arrivals</span>
-              </div>
-            </div>
+        <Row className="justify-content-center">
+          <Col xs={12} md={8} lg={6} className="text-center">
+            <h1
+              style={{
+                fontWeight: '700',
+                fontSize: '3.8rem',
+                color: '#111', // darker for better contrast
+                textShadow: '0 1px 2px rgba(255,255,255,0.6)', // soft contrast
+                fontFamily: "'Playfair Display', serif",
+                marginBottom: '25px',
+                lineHeight: '1.1',
+              }}
+            >
+              Elevate Your Everyday Style
+            </h1>
+            <p
+              style={{
+                fontSize: '1.3rem',
+                color: '#333',
+                fontWeight: '400',
+                marginBottom: '40px',
+                fontFamily: "'Open Sans', sans-serif",
+                letterSpacing: '0.02em',
+                textShadow: '0 1px 1px rgba(255,255,255,0.5)',
+              }}
+            >
+              Discover timeless pieces crafted for comfort, quality, and lasting fashion.
+            </p>
+           
+            <button  style={{
+                borderRadius: '30px',
+                padding: '14px 50px',
+                fontWeight: '600',
+                letterSpacing: '0.1em',
+                color: '#fff',
+                background:"black" 
+              }}>Shop Now</button>
           </Col>
         </Row>
       </Container>

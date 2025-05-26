@@ -130,7 +130,7 @@ updateCart: builder.mutation({
       }),
         invalidatesTags: ['Cart'],
     }),
-orders: builder.query({ query: () => `/Order/List/` }),
+orders: builder.query({ query: () => `/Order/List/`, providesTags: ['Order'], }),
 
 logout: builder.mutation({
       query: (details) => ({
@@ -138,7 +138,16 @@ logout: builder.mutation({
         method: 'POST',
         body:details,
       }),
-        invalidatesTags: ['Cart'],
+    
+    }),
+placeOrder: builder.mutation({
+      query: (details) => ({
+        url: '/Order/Add/',
+        method: 'POST',
+        body:details,
+      }),
+        invalidatesTags: ['Cart','Order'],
+
     }),
   }),
   
@@ -156,5 +165,6 @@ export const {
   useDeleteFromCartMutation,
   useUpdateCartMutation,
   useOrdersQuery,
-  useLogoutMutation
+  useLogoutMutation,
+  usePlaceOrderMutation
 } = apiSlice;

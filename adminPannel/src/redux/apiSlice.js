@@ -42,7 +42,8 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
-    productList: builder.query({ query: () => '/AdminPannel/List/' }),
+    productList: builder.query({ query: () => '/AdminPannel/List/', providesTags: ['Products'] }
+  ),
     ordersList: builder.query({ query: () => '/AdminPannel/ViewOrders/' }),
  
     loginAdmin: builder.mutation({
@@ -65,7 +66,24 @@ export const apiSlice = createApi({
         method: 'POST',
         body: details,
       }),
+       invalidatesTags: ['Products'],
     }),
+    logout: builder.mutation({
+          query: (details) => ({
+            url: '/api/logout/',
+            method: 'POST',
+            body:details,
+          }),
+        
+        }),
+    deleteProduct: builder.mutation({
+          query: (details) => ({
+            url: '/AdminPannel/Delete/',
+            method: 'DELETE',
+            body:details,
+          }),
+        invalidatesTags:['Products']
+        }),
   
 
 
@@ -80,5 +98,7 @@ useLoginAdminMutation,
 useProductListQuery,
 useOrdersListQuery,
 useUpdateStatusMutation,
-useAddProductMutation
+useAddProductMutation,
+useLogoutMutation,
+useDeleteProductMutation
 } = apiSlice;

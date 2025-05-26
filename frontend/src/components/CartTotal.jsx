@@ -1,10 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 
-const CartTotal = () => {
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+const CartTotal = ({text}) => {
   const total = useSelector((state) => state.cartTotal.value);
   const shippingFee = 80;
+  const navigate=useNavigate();
   const grandTotal = total + shippingFee;
+  const handleClick=()=>{
+    if(text==='PROCEED TO CHECKOUT'){
+      navigate('/checkout');
+    }
+    else{
+      
+    }
+  }
 
   return (
     <div className="" style={{ maxWidth: '600px' }}>
@@ -21,7 +30,7 @@ const CartTotal = () => {
         <span>Total</span>
         <span>₹{grandTotal.toFixed(2)}</span>
       </div>
-      <button className="btn btn-dark w-100 mt-4">PROCEED TO CHECKOUT</button>
+      <button className="btn btn-dark w-100 mt-4" onClick={handleClick}  style={{ display: text === 'PLACE ORDER' ? 'none' : 'block' }}>{text}</button>
     </div>
   );
 };

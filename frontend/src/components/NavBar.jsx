@@ -22,19 +22,22 @@ const NavBar = () => {
   const { data, isSuccess, refetch } = useCartQuery(undefined, {
     skip: !accessToken, // skip query if no token
   });
-
-    useEffect(() => {
-    if (accessToken) {
-      refetch();
-    } else {
-      // optionally reset cart count on logout
-      dispatch(setCartCount(0));
-    }
-  }, [accessToken, refetch, dispatch]);
+useEffect(() => {
+  if (accessToken) {
+    refetch().then((res) => {
+      if (res.data?.data) {
+        const count = res.data.data.reduce((acc, item) => acc + item.quantity, 0);
+        dispatch(setCartCount(count));
+      }
+    });
+  } else {
+    dispatch(setCartCount(0));
+  }
+}, [accessToken, refetch, dispatch]);
 
   const handleLogout = async () => {
     try {
-      await logoutApi().unwrap();  // call backend logout API
+      await logoutApi().unwrap();  
       dispatch(logout());
       navigate('/login');
     } catch (err) {
@@ -44,12 +47,14 @@ const NavBar = () => {
     }
 
   };
-  useEffect(() => {
-    if (isSuccess && data?.data) {
-      const count = data.data.reduce((acc, item) => acc + item.quantity, 0);
-      dispatch(setCartCount(count));
-    }
-  }, [isSuccess, data, dispatch]);
+  // useEffect(() => {
+  //   console.log("i did come here..");
+    
+  //   if (isSuccess && data?.data) {
+  //     const count = data.data.reduce((acc, item) => acc + item.quantity, 0);
+  //     dispatch(setCartCount(count));
+  //   }
+  // }, [isSuccess, data, dispatch]);
 
   return (
     <Navbar expand="md" bg="light" variant="light" className="py-3 px-4">
@@ -97,14 +102,7 @@ const NavBar = () => {
             >
               About
             </NavLink>
-            <NavLink
-              to="/contactUs"
-              className={({ isActive }) =>
-                `custom-nav ${isActive ? 'active' : ''}`
-              }
-            >
-              Contact
-            </NavLink>
+            
             <NavLink
               to="/admin"
               className={({ isActive }) =>

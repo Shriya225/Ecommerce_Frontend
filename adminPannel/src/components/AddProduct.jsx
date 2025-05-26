@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useAddProductMutation } from '../redux/apiSlice';
-
+import { toast } from 'react-toastify';
 const categories = ['Men', 'Women', 'Kids'];
 const subcategories = ['TopWear', 'BottomWear', 'WinterWear'];
 const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
@@ -47,9 +47,10 @@ const AddProduct = () => {
 
         
       const response = await addProduct(formData).unwrap();
-      console.log('Product added:', response);
+      toast.success("Successfully Added Product");
     } catch (error) {
       console.error('Upload failed:', error);
+      toast.error("Unable to Add Product");
     }
   };
 

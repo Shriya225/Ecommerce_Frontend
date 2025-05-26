@@ -67,23 +67,8 @@ const OrderItem = ({ item }) => {
           </div>
         </Col>
 
-        {/* Track Order Button */}
-        <Col xs={6} md={1} className="text-end mt-3 mt-md-0">
-          <button
-            style={{
-              padding: '4px 12px',
-              fontSize: '14px',
-              borderRadius: '4px',
-              border: '1px solid #333',
-              backgroundColor: '#fff',
-              color: '#333',
-              cursor: 'pointer',
-            }}
-            aria-label={`Track order for ${item?.product?.name}`}
-          >
-            Track Order
-          </button>
-        </Col>
+
+      
       </Row>
     </article>
   );
