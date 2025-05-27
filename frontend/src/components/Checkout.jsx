@@ -1,11 +1,14 @@
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import CartTotal from './CartTotal';
 import { useNavigate } from 'react-router-dom';
 import { usePlaceOrderMutation } from '../redux/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setCartCount } from '../redux/cartCountSlice';
+import razorPay from '../assets/razorpay_logo.png'
 const Checkout = () => {
     const dispatch = useDispatch();
+    const [paymentMethod, setPaymentMethod] = useState('');
     const {
         register,
         handleSubmit,
@@ -17,7 +20,7 @@ const Checkout = () => {
         console.log('Form Data:', data);
         try {
 
-            const res = await placeOrder({ "delivery_data": data, "payment_method": "cod" });
+            const res = await placeOrder({ "delivery_data": data, "payment_method": paymentMethod });
             dispatch(setCartCount(0));
             console.log("success");
             navigate('/orders');
@@ -111,13 +114,34 @@ const Checkout = () => {
                                     {...register('phone_number', { required: true })}
                                 />
                             </div>
-                            <button className="btn btn-dark w-100 mt-4" >PLACE ORDER</button>
+                            <button className="btn btn-dark w-100 mt-4"onClick={onsubmit}>PLACE ORDER</button>
                         </div>
                     </div>
 
                     {/* Right Side - Cart Total and Payment */}
                     <div className="w-50" style={{ "marginTop": "50px" }}>
                         <CartTotal text="PLACE ORDER" />
+                        <br /><br />
+               <h5 className="mb-4 pb-2">PAYMENT <span className="fw-light">METHOD</span></h5>
+<div className="d-flex gap-3">
+  <button
+    type="button"
+    className="btn btn-outline-info px-4 py-2"
+  
+    onClick={() => alert("💳 Razorpay integration is disabled in demo.")}
+  >
+    <img src={razorPay} alt="Razorpay" height="18" className="me-2" />
+  </button>
+
+    <button
+    className={`btn px-4 py-2 ${paymentMethod === 'cod' ? 'btn-success text-white' : 'btn-outline-success'}`}
+    onClick={() => setPaymentMethod('cod')}
+  >
+    Cash on Delivery
+  </button>
+</div>
+
+
                     </div>
                 </div>
             </form>

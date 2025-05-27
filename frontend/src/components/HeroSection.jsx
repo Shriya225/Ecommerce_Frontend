@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import herobg from '../assets/pexels-ron-lach-8386648.webp';
 
-const HeroSection = () => {
+const HeroSection = ({onShopNowClick}) => {
   return (
     <section
       style={{
@@ -11,7 +11,7 @@ const HeroSection = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundImage: `
-          linear-gradient(135deg, rgba(255, 241, 235, 0.5), rgba(255, 220, 209, 0.5)),
+          linear-gradient(135deg, rgba(255, 241, 235, 0.5), rgba(255, 238, 233, 0.5)),
           url(${herobg})
         `,
         backgroundSize: 'cover',
@@ -28,8 +28,8 @@ const HeroSection = () => {
               style={{
                 fontWeight: '700',
                 fontSize: '3.8rem',
-                color: '#111', // darker for better contrast
-                textShadow: '0 1px 2px rgba(255,255,255,0.6)', // soft contrast
+                color: '#111', 
+                textShadow: '0 1px 2px rgba(255,255,255,0.6)', 
                 fontFamily: "'Playfair Display', serif",
                 marginBottom: '25px',
                 lineHeight: '1.1',
@@ -58,7 +58,7 @@ const HeroSection = () => {
                 letterSpacing: '0.1em',
                 color: '#fff',
                 background:"black" 
-              }}>Shop Now</button>
+              }} onClick={onShopNowClick}>Shop Now</button>
           </Col>
         </Row>
       </Container>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const CartTotal = ({text}) => {
   const total = useSelector((state) => state.cartTotal.value);
+  const cartCount = useSelector(state => state.cartCount.count)
   const shippingFee = 80;
   const navigate=useNavigate();
   const grandTotal = total + shippingFee;
@@ -30,7 +31,14 @@ const CartTotal = ({text}) => {
         <span>Total</span>
         <span>₹{grandTotal.toFixed(2)}</span>
       </div>
-      <button className="btn btn-dark w-100 mt-4" onClick={handleClick}  style={{ display: text === 'PLACE ORDER' ? 'none' : 'block' }}>{text}</button>
+<button
+  className="btn btn-dark w-100 mt-4"
+  onClick={handleClick}
+  disabled={cartCount === 0}
+  style={{ display: text === 'PLACE ORDER' ? 'none' : 'block' }}
+>
+  {text}
+</button>
     </div>
   );
 };

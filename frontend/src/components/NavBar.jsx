@@ -66,9 +66,65 @@ useEffect(() => {
 
         {/* Right Icons - Mobile */}
         <div className="d-flex d-md-none gap-3 order-md-2 ms-auto">
-          <FaSearch size={18} />
-          <FaUser size={18} />
-          <FaShoppingCart size={18} />
+          
+          <Link to="/collection">
+            <FaSearch size={18} />
+          </Link>
+          {accessToken &&
+            <Link to="/cart" className="position-relative d-inline-block">
+              <img src={bagIcon} alt="Cart" width={24} height={24} />
+              <span className="cart-badge">{cartCount}</span>
+            </Link>}
+              {accessToken && (
+  <Link
+    to="/orders"
+  >
+     <button
+           
+              style={{
+                backgroundColor: 'black',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+              }}
+            >
+             Orders
+            </button>
+  </Link>
+)}
+
+          {accessToken ? (
+            <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: 'black',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+              }}
+            >
+              Logout
+            </button>
+        ) : (
+            <Link
+              to="/login"
+              style={{
+                color: 'black',
+                width: '28px',
+                height: '28px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <FaUser size={18} />
+            </Link>
+          )}
+
         </div>
 
         {/* Toggle */}

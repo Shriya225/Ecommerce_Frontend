@@ -1,0 +1,15 @@
+.product-card {
+  width: 100%;
+  max-width: 300px;
+  height: 450px; /* Default height for > 1200px and < 770px */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+@media (min-width: 770px) and (max-width: 1200px) {
+  .product-card {
+    height: 370px;
+  }
+}

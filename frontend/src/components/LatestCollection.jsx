@@ -1,4 +1,3 @@
-import React from 'react';
 import './Heading.css';
 import CardContainer from './CardContainer';
 const LatestCollection = ({data,heading,title}) => {
