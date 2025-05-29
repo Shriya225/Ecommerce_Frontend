@@ -1,6 +1,4 @@
-// redux/cartTotalSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-
 const cartTotalSlice = createSlice({
   name: 'cartTotal',
   initialState: {

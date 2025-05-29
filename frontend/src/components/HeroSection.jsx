@@ -1,5 +1,4 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 import herobg from '../assets/pexels-ron-lach-8386648.webp';
 
 const HeroSection = ({onShopNowClick}) => {

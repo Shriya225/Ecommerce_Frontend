@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Container, Navbar } from 'react-bootstrap';
-import { FaSearch, FaUser, FaShoppingCart, FaBox } from 'react-icons/fa';
+import { FaSearch, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
-import "./NavBar.css";
+import "../styles/NavBar.css";
+import '../styles/Heading.css';
 import bagIcon from "../assets/cart_icon.png";
 import { setCartCount } from '../redux/cartCountSlice';
 import { useCartQuery } from '../redux/apiSlice';
@@ -47,21 +48,14 @@ useEffect(() => {
     }
 
   };
-  // useEffect(() => {
-  //   console.log("i did come here..");
-    
-  //   if (isSuccess && data?.data) {
-  //     const count = data.data.reduce((acc, item) => acc + item.quantity, 0);
-  //     dispatch(setCartCount(count));
-  //   }
-  // }, [isSuccess, data, dispatch]);
+
 
   return (
-    <Navbar expand="md" bg="light" variant="light" className="py-3 px-4">
+    <Navbar expand="md" bg="light" variant="light" className="py-3 px-4 font">
       <Container fluid>
         {/* Left Logo */}
         <Navbar.Brand as={NavLink} to="/" className="fw-bold fs-3">
-          ShopEasy<span style={{ color: '#d69dff' }}>.</span>
+          ShopNest
         </Navbar.Brand>
 
         {/* Right Icons - Mobile */}
@@ -140,7 +134,7 @@ useEffect(() => {
                 `custom-nav ${isActive ? 'active' : ''}`
               }
             >
-              Home
+              HOME
             </NavLink>
             <NavLink
               to="/collection"
@@ -148,7 +142,7 @@ useEffect(() => {
                 `custom-nav ${isActive ? 'active' : ''}`
               }
             >
-              Collection
+              COLLECTION
             </NavLink>
             <NavLink
               to="/about"
@@ -156,17 +150,10 @@ useEffect(() => {
                 `custom-nav ${isActive ? 'active' : ''}`
               }
             >
-              About
+              ABOUT
             </NavLink>
-            
-            <NavLink
-              to="/admin"
-              className={({ isActive }) =>
-                `custom-nav border px-3 rounded-pill ${isActive ? 'active' : ''}`
-              }
-            >
-              Admin Panel
-            </NavLink>
+              <a href="http://localhost:5173/login" className='custom-nav border px-3 rounded-pill'>Admin Panel</a>
+
           </div>
         </Navbar.Collapse>
 
@@ -239,5 +226,4 @@ useEffect(() => {
     </Navbar>
   );
 };
-
-export default NavBar;
+export default React.memo(NavBar);

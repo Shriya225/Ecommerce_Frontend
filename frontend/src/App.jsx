@@ -1,26 +1,16 @@
 import NavBar from './components/NavBar'
-  import Footer from './components/Footer'
-  import Loader from './components/Loader';
-  import  {ToastContainer} from "react-toastify";
-  import { useLocation } from 'react-router-dom';
-  import { useEffect, useState } from 'react';
-  import { Outlet, useNavigation } from 'react-router-dom';
-  const App = () => {
-    const location = useLocation();
-    // useEffect(() => {
-    //   setLoading(true);
-    //   const timeout = setTimeout(() => setLoading(false), 300); // adjust as needed
-    //   return () => clearTimeout(timeout);
-    // }, [location]);
+import Footer from './components/Footer'
+import { ToastContainer } from "react-toastify";
+import { Outlet } from 'react-router-dom';
+const App = () => {
 
-    return (
-      <>
-        {/* {loading && <Loader />} */}
-        <NavBar />
-        <Outlet />
-        <Footer/>
-  <ToastContainer position="top-right" autoClose={3000} />
-      </>
-    );
-  };
-  export default App
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+      <Footer />
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
+  );
+};
+export default App

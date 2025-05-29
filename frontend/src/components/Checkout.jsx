@@ -12,24 +12,41 @@ const Checkout = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors },watch
     } = useForm();
     const navigate = useNavigate();
     const [placeOrder] = usePlaceOrderMutation();
+    // const onSubmit = async (data) => {
+    //     console.log('Form Data:', data);
+    //     try {
+
+    //         const res = await placeOrder({ "delivery_data": data, "payment_method": paymentMethod });
+    //         dispatch(setCartCount(0));
+    //         console.log("success");
+    //         navigate('/orders');
+    //     }
+    //     catch (err) {
+    //         console.log("unable to place Order");
+    //     }
+
+    // };
     const onSubmit = async (data) => {
-        console.log('Form Data:', data);
-        try {
+  console.log('Form Data:', data);
+  try {
+    const { payment_method, ...delivery_data } = data;
 
-            const res = await placeOrder({ "delivery_data": data, "payment_method": paymentMethod });
-            dispatch(setCartCount(0));
-            console.log("success");
-            navigate('/orders');
-        }
-        catch (err) {
-            console.log("unable to place Order");
-        }
+    const res = await placeOrder({
+      delivery_data, // only delivery fields
+      payment_method // separate field
+    });
 
-    };
+    dispatch(setCartCount(0));
+    navigate('/orders');
+  } catch (err) {
+    console.log("Unable to place order", err);
+  }
+};
+
 
     return (
         <div className="container my-5" >
@@ -114,7 +131,7 @@ const Checkout = () => {
                                     {...register('phone_number', { required: true })}
                                 />
                             </div>
-                            <button className="btn btn-dark w-100 mt-4"onClick={onsubmit}>PLACE ORDER</button>
+                            <button className="btn btn-dark w-100 mt-4">PLACE ORDER</button>
                         </div>
                     </div>
 
@@ -122,24 +139,46 @@ const Checkout = () => {
                     <div className="w-50" style={{ "marginTop": "50px" }}>
                         <CartTotal text="PLACE ORDER" />
                         <br /><br />
-               <h5 className="mb-4 pb-2">PAYMENT <span className="fw-light">METHOD</span></h5>
-<div className="d-flex gap-3">
-  <button
-    type="button"
-    className="btn btn-outline-info px-4 py-2"
-  
-    onClick={() => alert("💳 Razorpay integration is disabled in demo.")}
-  >
-    <img src={razorPay} alt="Razorpay" height="18" className="me-2" />
-  </button>
+                        <h5 className="mb-4 pb-2">PAYMENT <span className="fw-light">METHOD</span></h5>
+<div className="row g-3">
 
-    <button
-    className={`btn px-4 py-2 ${paymentMethod === 'cod' ? 'btn-success text-white' : 'btn-outline-success'}`}
-    onClick={() => setPaymentMethod('cod')}
-  >
-    Cash on Delivery
-  </button>
+  {/* Razorpay Button - Clickable but not selectable */}
+  <div className="col-12 col-md-6">
+    <div
+      onClick={() => alert("💳 Razorpay integration is disabled in demo.")}
+      className="w-100  px-4 py-3 border d-flex align-items-center gap-3 bg-white text-dark border-info cursor-pointer"
+      style={{ transition: 'all 0.3s ease' }}
+    >
+      <img src={razorPay} alt="Razorpay" height="20" />
+    
+    </div>
+  </div>
+
+  {/* COD Option */}
+  <div className="col-12 col-md-6">
+    <label
+      className={`w-100 px-4 py-3 border d-flex align-items-center gap-3 cursor-pointer 
+        ${watch('payment_method') === 'cod' ? 'bg-success text-white border-success' : 'bg-white text-dark border-success'}`}
+      style={{ transition: 'all 0.3s ease' }}
+    >
+      <input
+        type="radio"
+        value="cod"
+        {...register('payment_method', { required: true })}
+        className="d-none"
+      />
+      <span>Cash on Delivery</span>
+    </label>
+  </div>
+
+  {/* Error Message */}
+  {errors.payment_method && (
+    <div className="col-12">
+      <span className="text-danger ps-2">Please select a payment method</span>
+    </div>
+  )}
 </div>
+
 
 
                     </div>

@@ -1,18 +1,19 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-
+import '../styles/Heading.css';
 const Footer = () => {
   return (
-    <footer className="bg-white text-dark py-5 mt-5 border-top">
+    <footer className="bg-white text-dark py-5 mt-5 border-top font">
       <Container>
         <Row className="gy-4">
           {/* Left Section: Brand Description */}
-          <Col md={6}>
+          <Col md={4}>
             <h2 className="h4 mb-3">
-              ShopEasy <span className="visually-hidden">Footer Brand</span>
+              ShopNest <span className="visually-hidden">Footer Brand</span>
             </h2>
             <p className="text-muted" style={{ lineHeight: "1.6" }}>
-              ShopEasy is your trusted shopping partner. Bringing quality products to your door since 2024.
+              ShopNest is your trusted shopping partner. <br />
+              Bringing quality products to your door since 2024.
             </p>
           </Col>
 
@@ -23,10 +24,10 @@ const Footer = () => {
                 <nav aria-label="Company Info">
                   <h3 className="h6 mb-3 text-uppercase fw-bold">Company</h3>
                   <ul className="list-unstyled">
-                    <li><a href="/" className="text-muted text-decoration-none">Home</a></li>
-                    <li><a href="/about" className="text-muted text-decoration-none">About Us</a></li>
-                    <li><a href="/delivery" className="text-muted text-decoration-none">Delivery</a></li>
-                    <li><a href="/privacy-policy" className="text-muted text-decoration-none">Privacy Policy</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">Home</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">About Us</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">Delivery</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">Privacy Policy</a></li>
                   </ul>
                 </nav>
               </Col>
@@ -34,8 +35,8 @@ const Footer = () => {
                 <address>
                   <h3 className="h6 mb-3 text-uppercase fw-bold">Get in Touch</h3>
                   <ul className="list-unstyled">
-                    <li><a href="tel:+10000000000" className="text-muted text-decoration-none">+1-000-000-0000</a></li>
-                    <li><a href="mailto:greenfooddengapad.com" className="text-muted text-decoration-none">greenfooddengapad.com</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">+1-000-000-0000</a></li>
+                    <li><a href="#" className="text-muted text-decoration-none">greenfooddengapad.com</a></li>
                     <li><a href="https://instagram.com" className="text-muted text-decoration-none" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                   </ul>
                 </address>
@@ -48,7 +49,7 @@ const Footer = () => {
 
         <Row>
           <Col className="text-center text-muted small">
-            &copy; {new Date().getFullYear()} ShopEasy. All Rights Reserved.
+            &copy; {new Date().getFullYear()} ShopNest. All Rights Reserved.
           </Col>
         </Row>
       </Container>

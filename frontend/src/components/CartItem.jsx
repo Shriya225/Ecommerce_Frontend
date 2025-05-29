@@ -30,7 +30,6 @@ useEffect(() => {
     if (quantity !== item?.quantity) {
       try {
         await updateQuantity({ id: item?.id, quantity }).unwrap();
-        toast.success("Quantity updated");
       } catch (err) {
         toast.error("Failed to update quantity");
       }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import './ProductCard.css';
+import { Card } from 'react-bootstrap';
+import '../styles/ProductCard.css';
 const ProductCard = ({img,title,price}) => {
   return (
     <div className="d-flex justify-content-center">

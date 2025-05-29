@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import { useLoginUserMutation, useRegisterUserMutation } from "../redux/apiSlice";
 import { toast } from "react-toastify";
-import './Login.css';
+import '../styles/Login.css';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
-
 
 const Login = () => {
     const [signup, setSignup] = useState(false);
@@ -43,7 +42,7 @@ const Login = () => {
 
     return (
         <Container className="login-container">
-            <h2 className='login-heading'>{signup === true ? "Signup —" : "Login —"}</h2>
+            <h2 className='login-heading '>{signup === true ? "Signup —" : "Login —"}</h2>
             <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
                 <Form.Group className="mb-3">
                     <Form.Control

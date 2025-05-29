@@ -1,5 +1,5 @@
-import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+import '../styles/Heading.css';
+import { ListGroup,Spinner,Alert } from 'react-bootstrap';
 import CartItem from './CartItem';
 import { useCartQuery } from '../redux/apiSlice';
 import { setCartTotal } from '../redux/cartTotalSlice';
@@ -7,6 +7,7 @@ import { setCartCount } from '../redux/cartCountSlice';
 import { useDispatch } from 'react-redux';
 import CartTotal from './CartTotal';
 import { useEffect } from 'react';
+
 const CartContainer = () => {
   const dispatch = useDispatch();
   const { data, isLoading, error } = useCartQuery();
@@ -30,12 +31,26 @@ useEffect(() => {
   }
 }, [cartData, dispatch]);
 
-  if (isLoading) return <div className="text-center py-4">Loading...</div>;
-  if (error) return <div className="text-center py-4 text-danger">Error loading cart</div>;
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert variant="danger" className="error-alert">
+        Something went wrong.
+      </Alert>
+    );
+  }
+
 
   return (
-    <div className="p-3">
-      <h2 className="text-center mb-4">Your Cart</h2>
+    <div className="p-3 font">
+       <h3 className='text-center m-4 font'>Your Cart</h3>
       <ListGroup>
         {cartData?.map((cartItem, key) => (
           <CartItem key={key} item={cartItem} />

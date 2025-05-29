@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
 .font{
-    /* background-color: black; */
-    font-family: 'Outfit', 'cursive',sans-serif;
+ 
+    font-family: 'Outfit','Ariel',sans-serif;
     font-weight: 400;
     text-align: center;
-
 }

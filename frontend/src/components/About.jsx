@@ -1,12 +1,11 @@
-import React from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { FaExchangeAlt, FaHeadphonesAlt } from 'react-icons/fa';
 import { BsShieldCheck } from 'react-icons/bs';
-import about3 from '../assets/pexels-ron-lach-8386648 (2).webp'
+import about2 from '../assets/pexels-kish-1488463.jpg'
 import { Link } from 'react-router-dom';
 const About = () => {
   return (
-    <section aria-label="About Us" className="py-5">
+    <section aria-label="About Us" className="py-5 font" style={{"text-align":"left"}} >
       <Container>
         <Row className="align-items-center mb-5">
           <Col
@@ -14,7 +13,7 @@ const About = () => {
             className="mb-4 mb-md-0 d-flex justify-content-center"
           >
             <Image
-              src={about3}
+              src={about2}
               alt="Clothing Store"
               fluid
               rounded
@@ -31,7 +30,7 @@ const About = () => {
           <Col md={7}>
             <h1 className="h2 mb-3">About Our Company</h1>
             <p className="lead">
-              We’re a passionate team dedicated to delivering high-quality solutions since 2015.
+              We’re a passionate team dedicated to delivering high-quality solutions since 2024.
             </p>
             <p>
               Founded in San Francisco, our mission is to simplify technology for everyday users.

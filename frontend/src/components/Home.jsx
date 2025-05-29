@@ -1,13 +1,9 @@
-import React from 'react'
-import { Toast, ToastContainer } from 'react-bootstrap';
 import { useState,useRef } from 'react';
 import HeroSection from './HeroSection';
-import Subscribe from './Subscribe';
 import LatestCollection from './LatestCollection';
 import { useHomeQuery } from '../redux/apiSlice';
 
 const Home = () => {
-  const [showToast, setShowToast] = useState(false);
   const { data, error, isLoading } = useHomeQuery();
   const latestRef = useRef(null);
   const handleShopNowClick = () => {
@@ -36,7 +32,7 @@ const Home = () => {
         </div>
      
       }
-      <Subscribe />
+   
     </div>
   )
 }

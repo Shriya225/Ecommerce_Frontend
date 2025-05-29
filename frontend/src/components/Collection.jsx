@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CardContainer from './CardContainer';
 import { useAllCollectionQuery } from '../redux/apiSlice';
 import {
@@ -11,8 +11,8 @@ import {
   Button
 } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
-import './Collection.css';
-
+import '../styles/Collection.css';
+import '../styles/Heading.css';
 const Collection = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
@@ -29,7 +29,7 @@ const Collection = () => {
     type,
     search
   });
-  const totalPages = data ? Math.ceil(data.count / 10) : 1;
+  const totalPages = data ? Math.ceil(data.count / 12) : 1;
 
   const handlePageChange = (newPage) => {
     setSearchParams(prev => {
@@ -114,7 +114,7 @@ const Collection = () => {
     <div className="collection-container">
       {/* Header Section with Search and Sort */}
       <div className="collection-header">
-        <h2 className="collection-title">ALL COLLECTIONS</h2>
+        <h2 className='font'>ALL COLLECTIONS</h2>
         <div className="header-controls">
 
           <InputGroup className="search-container" >
@@ -132,8 +132,8 @@ const Collection = () => {
                   setInputValue('');
                   setSearchParams(prev => {
                     const params = new URLSearchParams(prev);
-                    params.delete('search'); // remove search param
-                    params.set('page', '1'); // reset to page 1
+                    params.delete('search');
+                    params.set('page', '1');
                     return params;
                   });
                 }}

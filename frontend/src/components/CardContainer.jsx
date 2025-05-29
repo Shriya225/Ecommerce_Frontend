@@ -1,21 +1,18 @@
-import React from 'react'
-import p_img9 from '../assets/p_img9.png';
-import p_img8 from '../assets/p_img8.png';
 import { Container, Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
-import { NavLink, Link } from 'react-router-dom';
-import "./CardContainer.css";
+import { NavLink } from 'react-router-dom';
+import "../styles/CardContainer.css";
 import { memo } from "react";
 
 const CardContainer = ({ data }) => {
     return (
         <Container>
-           {
+            {
 
-            console.log("cardcontaier loading..")
-           }
+                console.log("cardcontaier loading..")
+            }
             <Row
-                className="justify-content-center g-4" // Centers cards and adds gap between them
+                className="justify-content-center g-4"
             >
                 {data.map((product) => {
                     return <Col key={product.id} md={3} sm={6} xs={12} >

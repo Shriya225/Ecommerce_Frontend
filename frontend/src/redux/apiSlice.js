@@ -6,7 +6,7 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers, { endpoint, getState }) => {
     // Skip auth header for these public endpoints
-    const publicEndpoints = ['home', 'allCollection', 'productDetail','logout'];
+    const publicEndpoints = ['home', 'allCollection', 'productDetail','logout','registerUser','loginUser'];
 
     if (!publicEndpoints.includes(endpoint)) {
       const token = getState().auth.accessToken;
@@ -56,7 +56,6 @@ export const apiSlice = createApi({
         }),
     productDetail: builder.query({ query: (id) => `/api/collections/${id}/` }),
 
-    // Protected endpoints (require auth)
     loginUser: builder.mutation({
       query: (credentials) => ({
         url: '/api/login/',
@@ -66,7 +65,7 @@ export const apiSlice = createApi({
     }),
     registerUser: builder.mutation({
       query: (details) => ({
-        url: "register/",
+        url: "/api/register/",
         method: "POST",
         body: details
       }),

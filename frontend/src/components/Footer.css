@@ -1,9 +1,0 @@
-/* For perfect alignment of the dash after FOREVER */
-.d-inline-block {
-    transform: translateY(-1px);
-  }
-  
-  /* If you want tighter line spacing */
-  .text-muted {
-    line-height: 1.5;
-  }

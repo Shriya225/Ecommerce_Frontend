@@ -1,4 +1,4 @@
-import './Heading.css';
+import '../styles/Heading.css';
 import CardContainer from './CardContainer';
 const LatestCollection = ({data,heading,title}) => {
     console.log(`data in ${heading} colletion is...`,data);
