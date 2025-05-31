@@ -146,7 +146,7 @@ const NavBar = () => {
             >
               ABOUT
             </NavLink>
-            <a href="http://localhost:5173/login" className='custom-nav border px-3 rounded-pill'>Admin Panel</a>
+            <a href={`${import.meta.env.VITE_ADMIN_PANEL_URL}/login`} className='custom-nav border px-3 rounded-pill'>Admin Panel</a>
           </div>
         </Navbar.Collapse>
 
