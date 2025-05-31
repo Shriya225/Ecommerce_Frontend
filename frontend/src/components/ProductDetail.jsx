@@ -20,7 +20,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
 
 
-  console.log(data, id);
+
 
   let product_imgs = data?.product_images;
   let image_url = data?.product_images[0]?.image_url;

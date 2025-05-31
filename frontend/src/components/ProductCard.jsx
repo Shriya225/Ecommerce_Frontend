@@ -8,7 +8,7 @@ const ProductCard = ({img,title,price}) => {
        <div className="product-img-container">
 
         <Card.Img variant="top" src={img} className='product-img'
- />{console.log(img)} 
+ />
         <Card.Body>
           <Card.Title style={{ textDecoration: 'none' }}>{title}</Card.Title>
           <Card.Text style={{ textDecoration: 'none' }}>

@@ -16,22 +16,9 @@ const Checkout = () => {
     } = useForm();
     const navigate = useNavigate();
     const [placeOrder] = usePlaceOrderMutation();
-    // const onSubmit = async (data) => {
-    //     console.log('Form Data:', data);
-    //     try {
-
-    //         const res = await placeOrder({ "delivery_data": data, "payment_method": paymentMethod });
-    //         dispatch(setCartCount(0));
-    //         console.log("success");
-    //         navigate('/orders');
-    //     }
-    //     catch (err) {
-    //         console.log("unable to place Order");
-    //     }
-
-    // };
+ 
     const onSubmit = async (data) => {
-  console.log('Form Data:', data);
+ 
   try {
     const { payment_method, ...delivery_data } = data;
 

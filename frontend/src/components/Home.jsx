@@ -10,7 +10,7 @@ const Home = () => {
     latestRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   if (!isLoading) { console.log(data); }
-  console.log("Home component isd being laoded?");
+
 
   return (
     <div>

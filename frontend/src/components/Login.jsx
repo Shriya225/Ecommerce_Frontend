@@ -17,12 +17,11 @@ const Login = () => {
     const [registerUser, { isLoading: isRegisterLoading }] = useRegisterUserMutation();
 
     const onSubmit = async (data) => {
-        console.log(data);
+   
         try {
             if (signup === false) {
                 const response = await login(data).unwrap();
                 dispatch(setAccessToken(response.access));
-                console.log("successfully logged in");
                 navigate('/');
                 // toast.success("Successfully Logged in", { draggable: true });
             } else {
@@ -35,7 +34,7 @@ const Login = () => {
                 toast.success("Created Account");
             }
         } catch (err) {
-            console.log("Login error:", err?.data?.detail || err.message);
+        
             toast.error("Invalid Credentials");
         }
     };

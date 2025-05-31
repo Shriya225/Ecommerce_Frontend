@@ -18,8 +18,7 @@ const OrderContainer = () => {
       }
   return (
     <div>
-        {console.log(data)
-        }
+       
         {
           data.map((ele,index)=><OrderItem key={index} item={ele}/>)
         }

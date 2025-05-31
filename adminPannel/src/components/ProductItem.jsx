@@ -17,8 +17,7 @@ const ProductItem = ({item}) => {
   return (
     <div>
 
-       {console.log(item)
-       }
+      
        
         <div className="border-bottom py-3 container">
       <Row className="align-items-center">

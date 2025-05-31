@@ -7,10 +7,7 @@ import { memo } from "react";
 const CardContainer = ({ data }) => {
     return (
         <Container>
-            {
-
-                console.log("cardcontaier loading..")
-            }
+            
             <Row
                 className="justify-content-center g-4"
             >

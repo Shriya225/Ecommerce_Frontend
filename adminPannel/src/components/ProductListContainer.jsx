@@ -20,7 +20,7 @@ const ProductListContainer = () => {
       <div>
            {/* <h2>All ProductList</h2> */}
 
-          {console.log(data)}
+        
           {
             data.map(item=><ProductItem item={item}/>)
           }

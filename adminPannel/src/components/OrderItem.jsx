@@ -10,7 +10,7 @@ const OrderItem = ({ item }) => {
     setValue(newValue);
     try{
         const res=await updateStatus({id:item.id,status:newValue});
-        console.log("succefully updated status");
+      
         
     }
     catch(err){
@@ -21,8 +21,8 @@ const OrderItem = ({ item }) => {
   return (
     <div>
 
-      {console.log(item)
-      }<div className="border-bottom py-3 container">
+      
+      <div className="border-bottom py-3 container">
         <Row className="align-items-center">
           <Col xs={3} md={2}>
             <Image

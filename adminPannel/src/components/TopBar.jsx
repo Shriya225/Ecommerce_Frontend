@@ -16,7 +16,7 @@ const TopBar = () => {
         dispatch(logout());
         navigate('/login');
       } catch (err) {
-        console.error('Failed to logout:', err);
+     
         dispatch(logout());
       }
   

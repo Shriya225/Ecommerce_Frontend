@@ -43,7 +43,7 @@ const AddProduct = () => {
 
     try {
         for (let pair of formData.entries()) {
-  console.log(pair[0] + ':', pair[1]);
+  
 }
 
         
@@ -51,7 +51,7 @@ const AddProduct = () => {
       toast.success("Successfully Added Product");
       reset();
     } catch (error) {
-      console.error('Upload failed:', error);
+     
       toast.error("Unable to Add Product");
     }
   };

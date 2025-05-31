@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Button, Card, Container, Toast } from 'react-bootstrap';
+
+import { Form, Button, Card, Container } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useLoginAdminMutation } from '../redux/apiSlice';
 import { toast } from "react-toastify";
@@ -19,17 +19,14 @@ const Login = () => {
 
   const onSubmit = async(data) => {
     try{
-      console.log('Login data:', data);
         const response = await loginAdmin(data).unwrap();
         dispatch(setAccessToken(response.access));
         toast.success("Successfully Loggedin..");
-        console.log("okk");
         navigate("/");
 
     }
     catch(err){
-      console.log("error",err);
-      
+ 
       toast.error("UnAuthorized");
     }
   };
@@ -47,7 +44,7 @@ const Login = () => {
   }}>
       <Card className="w-100" style={{ maxWidth: '400px' }}>
         <Card.Body>
-          <Card.Title className="text-center mb-4"><h2>Admin Pannel
+          <Card.Title className="text-center mb-4"><h2>Admin Panel
             </h2></Card.Title>
           
           <Form onSubmit={handleSubmit(onSubmit)}>

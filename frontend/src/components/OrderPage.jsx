@@ -24,7 +24,7 @@ const OrderPage = () => {
 
     <div>
     <h3 className='text-center m-4 font'>My Orders</h3>
-    {console.log(data)}
+  
     {
       data.map((item,index)=><OrderItem key={index} item={item}/>)
     }
