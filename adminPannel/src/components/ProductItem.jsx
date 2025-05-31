@@ -24,7 +24,7 @@ const ProductItem = ({item}) => {
       <Row className="align-items-center">
         <Col xs={3} md={2}>
           <Image
-            src={`http://localhost:8000${item?.main_img}`}
+            src={item?.main_img}
             alt={item?.product?.name || 'Product Image'}
             fluid
             width={80}

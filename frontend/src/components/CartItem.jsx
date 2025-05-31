@@ -41,7 +41,7 @@ useEffect(() => {
       <Row className="align-items-center">
         <Col xs={3} md={2}>
           <Image
-            src={`http://localhost:8000${item?.product?.main_img}`}
+            src={item?.product?.main_img}
             alt={item?.product?.name || 'Product Image'}
             fluid
             width={80}

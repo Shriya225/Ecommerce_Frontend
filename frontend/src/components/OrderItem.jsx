@@ -13,7 +13,7 @@ const OrderItem = ({ item }) => {
         {/* Product Image */}
         <Col xs={12} md={2} className="mb-3 mb-md-0">
           <Image
-  src={`http://localhost:8000${item?.product?.main_img}`}
+  src={item?.product?.main_img}
   alt={`Image of ${item?.product?.name}`}
   width={80}
   height={100}

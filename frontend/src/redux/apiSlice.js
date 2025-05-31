@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setAccessToken, logout } from './authSlice';
 import { setCartTotal } from './cartTotalSlice';
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000',
+  baseUrl:import.meta.env.VITE_API_BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { endpoint, getState }) => {
     // Skip auth header for these public endpoints
@@ -24,13 +24,13 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   if (result.error?.status === 401) {
   const refreshResult = await fetchBaseQuery({
-      baseUrl: 'http://localhost:8000',
+      baseUrl: import.meta.env.VITE_API_BASE_URL,
       credentials: 'include',
       prepareHeaders: (headers) => {
         // Don't attach any auth header here
         return headers;
       },
-    })({ url: '/api/refresh/', method: 'POST' }, api, extraOptions);
+    })({ url: '/api/refresh-user/', method: 'POST' }, api, extraOptions);
     if (refreshResult.data?.access) {
       api.dispatch(setAccessToken(refreshResult.data.access));
       result = await baseQuery(args, api, extraOptions);
@@ -133,7 +133,7 @@ orders: builder.query({ query: () => `/Order/List/`, providesTags: ['Order'], })
 
 logout: builder.mutation({
       query: (details) => ({
-        url: '/api/logout/',
+        url: '/api/logout-user/',
         method: 'POST',
         body:details,
       }),

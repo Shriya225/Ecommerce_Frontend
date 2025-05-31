@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductDetailQuery } from '../redux/apiSlice';
-import { Container, Row, Col, Button, Image, Table } from 'react-bootstrap';
+import { Container, Row, Col, Button, Image, Alert,Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
@@ -59,8 +59,21 @@ const ProductDetail = () => {
   }
 
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading product</div>;
+   if (isLoading) {
+     return (
+       <div className="loading-container">
+         <Spinner animation="border" variant="primary" />
+       </div>
+     );
+   }
+ 
+   if (error) {
+     return (
+       <Alert variant="danger" className="error-alert">
+         Something went wrong.
+       </Alert>
+     );
+   }
 
   return (
     <Container className="my-4">
@@ -85,7 +98,7 @@ const ProductDetail = () => {
                 {mainImgUrl && (
                   <Image src={mainImgUrl} alt="Main product" fluid className="w-100 h-100" style={{ objectFit: 'contain' }} />
                 )}
-              </div>
+              </div>  
             </Col>
           </Row>
         </Col>

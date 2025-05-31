@@ -11,6 +11,7 @@ const AddProduct = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -48,6 +49,7 @@ const AddProduct = () => {
         
       const response = await addProduct(formData).unwrap();
       toast.success("Successfully Added Product");
+      reset();
     } catch (error) {
       console.error('Upload failed:', error);
       toast.error("Unable to Add Product");
