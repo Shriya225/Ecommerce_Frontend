@@ -21,13 +21,13 @@ const Home = () => {
             <LatestCollection
               data={data["latest_products"]}
               heading={"LATEST COLLECTIONS"}
-              title={"Lorem Ipsum is simply dummy text of the printing and typesetting industry."}
+              title={"Discover our handpicked selection of the latest fashion trends, crafted for comfort and style."}
             />
           </div>
           <LatestCollection
             data={data["best_sellers"]}
             heading={"BEST SELLERS"}
-            title={"Lorem Ipsum is simply dummy text of the printing and typesetting industry."}
+            title={"Explore our best-selling collections — a perfect blend of comfort and style"}
           />
         </div>
      

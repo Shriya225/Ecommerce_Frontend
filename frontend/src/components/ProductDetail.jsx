@@ -110,7 +110,7 @@ const ProductDetail = () => {
           <div className="mb-3">
             <span className="text-muted">★★★★★ (122)</span>
           </div>
-          <h3 className="mb-3">{data?.price}</h3>
+          <h3 className="mb-3">₹ {data?.price}</h3>
           <p className="mb-4">
             {data?.description}
           </p>

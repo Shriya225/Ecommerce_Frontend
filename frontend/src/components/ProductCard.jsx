@@ -12,7 +12,7 @@ const ProductCard = ({img,title,price}) => {
         <Card.Body>
           <Card.Title style={{ textDecoration: 'none' }}>{title}</Card.Title>
           <Card.Text style={{ textDecoration: 'none' }}>
-            {price}
+            ₹ {price}
           </Card.Text>
         </Card.Body>
  </div>
